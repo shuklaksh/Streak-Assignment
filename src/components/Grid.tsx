@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 type gridState = "empty" | "start" | "end" | "path" | "obstacle";
 
 const Grid: React.FC = () => {
-  const gridSize = 20;
+  const gridSize = 3;
   const matrix = Array.from({ length: gridSize }, () =>
     Array(gridSize).fill("empty")
   );
@@ -42,7 +42,7 @@ const Grid: React.FC = () => {
       });
     } else {
       if (!start) {
-        setStart([row, col]);
+        setStart([row, col]); 
         setGrid((prev) => {
           const newGrid = [...prev];
           newGrid[row] = [...newGrid[row]];
@@ -87,6 +87,7 @@ const Grid: React.FC = () => {
     }
   };
   const colorPath = (data: [number, number][]) => {
+    if(data.length === 0) alert("No Path Exist");
     data.shift();
     data.pop();
     const currentGrid = grid.map((row) => [...row]);
@@ -133,7 +134,7 @@ const Grid: React.FC = () => {
             className="border rounded p-2 bg-slate-600 text-white"
             onClick={() => {setIsObstacleMode((prev) => !prev)}}
         >
-          {isObstacleMode ? "Cancel Add Obstacle" : "Add Obstacle"}
+          {isObstacleMode ? "Obstacle mode" : "Add Obstacle"}
         </button>
       </div>
       <div ref={gridRef}>
